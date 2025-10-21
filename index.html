@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danhvip</title>
+  <link rel="stylesheet" href="STYLE.CSS">
+</head>
+<body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danhvip</title>
+  <link rel="stylesheet" href="STYLE.CSS">
+  <script src="heafooter.js"></script>
+</head>
+
+  <section class="banner-slider">
+    <div class="slides">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9');">
+        <div class="banner-content">
+          <h1>Chào mừng đến với Danhvip</h1>
+          <p>Điện thoại & Laptop chất lượng cao</p>
+          <a href="#content" class="banner-btn">Khám phá ngay</a>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8');">
+        <div class="banner-content">
+          <h1>Ưu đãi hấp dẫn</h1>
+          <p>Giảm giá sốc cuối tuần</p>
+          <a href="#content" class="banner-btn">Mua ngay</a>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');">
+        <div class="banner-content">
+          <h1>Sản phẩm mới</h1>
+          <p>Đón đầu công nghệ 2025</p>
+          <a href="#content" class="banner-btn">Xem chi tiết</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nội dung -->
+  <div class="container">
+    <h1>Tất cả sản phẩm</h1>
+    <div id="content"></div>
+
+    <h1>Sản phẩm điện thoại</h1>
+    <div id="phone"></div>
+
+    <h1>Sản phẩm laptop</h1>
+    <div id="laptop"></div>
+  </div>
+
+  <script>
+    // Hiệu ứng slide
+    window.addEventListener("DOMContentLoaded", () => {
+      let currentIndex = 0;
+      const slides = document.querySelectorAll(".banner-slider .slide");
+      const totalSlides = slides.length;
+
+      function showNextSlide() {
+        slides[currentIndex].classList.remove("active");
+        slides[currentIndex].classList.add("prev");
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slides[currentIndex].classList.remove("prev");
+        slides[currentIndex].classList.add("active");
+      }
+
+      setInterval(showNextSlide, 4000);
+    });
+
+    // =====================
+    // Lớp sản phẩm
+    // =====================
+    class Product {
+      constructor(id, name, price, image, category, hot, description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.category = category;
+        this.hot = hot;
+        this.description = description;
+      }
+
+      render() {
+        return `
+          <div class="product">
+            <img src="${this.image}" alt="${this.name}">
+            <div class="meta">
+              <h3>${this.name}</h3>
+              <p class="price">${this.price.toLocaleString()} ₫</p>
+              <button onclick="window.location.href='detail.html?id=${this.id}'">Xem chi tiết</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    fetch('http://localhost:3000/products')
+      .then(response => response.json())
+      .then(data => {
+        const products = data.map(item =>
+          new Product(item.id, item.name, item.price, item.image, item.category, item.hot, item.description)
+        );
+
+        const phoneProducts = products.filter(p => p.category.toLowerCase() === "điện thoại");
+        const laptopProducts = products.filter(p => p.category.toLowerCase() === "laptop");
+
+        const renderData = (arr, divId) => {
+          document.getElementById(divId).innerHTML = arr.map(p => p.render()).join("");
+        };
+
+        renderData(products, "content");
+        renderData(phoneProducts, "phone");
+        renderData(laptopProducts, "laptop");
+      })
+      .catch(err => console.error("Lỗi tải sản phẩm:", err));
+  </script>
+</body>
+</html>

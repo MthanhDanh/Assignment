@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng</title>
+  <link rel="stylesheet" href="STYLE.CSS">
+  <script src="heafooter.js"></script>
+  <style>
+    .cart-container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .cart-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    table thead {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+    }
+
+    table th, table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    table td {
+      font-size: 15px;
+    }
+
+    table img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 5px 10px;
+    }
+
+    .qty-control button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #f0f0f0;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .qty-control button:hover {
+      background: #ff4b2b;
+      color: white;
+    }
+
+    .qty-control span {
+      min-width: 30px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(220,53,69,0.3);
+    }
+
+    .btn-delete:hover {
+      background: #c82333;
+      transform: scale(1.05);
+    }
+
+    #cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+      font-size: 20px;
+    }
+
+    .cart-summary {
+      text-align: right;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    #cart-total {
+      font-size: 26px;
+      font-weight: bold;
+      color: #ff4b2b;
+      margin-bottom: 20px;
+    }
+
+    .btn-checkout {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255,75,43,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-checkout:hover {
+      background: linear-gradient(135deg, #dbe600, #ffc30e);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(72,177,191,0.5);
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 13px;
+      }
+      
+      table th, table td {
+        padding: 10px 5px;
+      }
+      
+      table img {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .btn-checkout {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="cart-container">
+      <h2>🛒 Giỏ hàng của bạn</h2>
+
+      <div id="cart-empty" style="display:none;">
+        Giỏ hàng trống. <a href="index.html" style="color: #ff4b2b;">Tiếp tục mua sắm</a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Hình ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div id="cart-total">Tổng tiền: <span>0 đ</span></div>
+        <button class="btn-checkout">💳 Thanh toán</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+</body>
+</html>

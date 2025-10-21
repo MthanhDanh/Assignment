@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm</title>
+  <link rel="stylesheet" href="STYLE.CSS">
+  <script src="heafooter.js"></script>
+  <style>
+    .product-detail {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .image-box {
+      flex: 1;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .main-img {
+      width: 100%;
+      height: 380px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .thumbnail-list {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 12px;
+    }
+
+    .thumbnail-list img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      transition: border 0.3s ease, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .thumbnail-list img:hover {
+      border-color: #ff4b2b;
+      transform: scale(1.05);
+    }
+
+    .info-box {
+      flex: 1;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .info-box h2 {
+      font-size: 28px;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 26px;
+      color: #ff4b2b;
+      font-weight: bold;
+      margin-bottom: 18px;
+      text-shadow: 0 1px 3px rgba(255,75,43,0.3);
+    }
+
+    .description {
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    .add-to-cart {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255,75,43,0.4);
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .add-to-cart:hover {
+      background: linear-gradient(135deg, #dbe600, #ffc30e);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(72,177,191,0.5);
+    }
+
+    @media (max-width: 900px) {
+      .product-detail {
+        flex-direction: column;
+        align-items: center;
+      }
+      .image-box, .info-box {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <h2 style="text-align:center; margin-bottom: 20px; color: #333;">Chi tiết sản phẩm</h2>
+
+    <div class="product-detail">
+      <div class="image-box">
+        <img class="main-img" id="main-image" src="img/iphone.jpg" alt="iPhone 15">
+        <div class="thumbnail-list">
+          <img src="img/iphone.jpg" alt="thumb1" onclick="changeImage('img/iphone.jpg')">
+          <img src="img/samsung.jpg" alt="thumb2" onclick="changeImage('img/samsung.jpg')">
+          <img src="img/macbook.jpg" alt="thumb3" onclick="changeImage('img/macbook.jpg')">
+          <img src="img/xiaomi.jpg" alt="thumb4" onclick="changeImage('img/xiaomi.jpg')">
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h2 id="product-name">iPhone 15 Pro Max 256GB</h2>
+        <p class="price" id="product-price">29,990,000₫</p>
+        <p class="description" id="product-description">
+          iPhone 15 Pro Max được trang bị chip A17 Bionic siêu mạnh mẽ, màn hình Super Retina XDR 6.7 inch sắc nét.
+          Thiết kế khung titan sang trọng, camera zoom quang học 5x, mang lại trải nghiệm cao cấp vượt trội.
+        </p>
+        <button class="add-to-cart" onclick="addToCart()">🛒 Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Về chúng tôi</h3>
+        <p>MyShop - Cửa hàng công nghệ uy tín, chất lượng hàng đầu Việt Nam.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Liên hệ</h3>
+        <ul>
+          <li>Email: contact@myshop.vn</li>
+          <li>Hotline: 1900 xxxx</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 MyShop. All rights reserved.
+    </div>
+  </footer>
+
+ <script>
+    const currentProduct = {
+      name: "iPhone 15 Pro Max 256GB",
+      price: 29990000,
+      image: "img/iphone.jpg"
+    };
+
+    function changeImage(imageSrc) {
+      document.getElementById('main-image').src = imageSrc;
+      currentProduct.image = imageSrc;
+    }
+
+    function addToCart() {
+      try {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existingItemIndex = cart.findIndex(item => item.name === currentProduct.name);
+
+        if (existingItemIndex !== -1) {
+          cart[existingItemIndex].quantity += 1;
+        } else {
+          cart.push({
+            name: currentProduct.name,
+            price: currentProduct.price,
+            image: currentProduct.image,
+            quantity: 1
+          });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        
+        if (typeof updateCartCount === 'function') {
+          updateCartCount();
+        }
+        
+        alert("Đã thêm sản phẩm vào giỏ hàng!");
+        console.log("Giỏ hàng hiện tại:", cart);
+      } catch (error) {
+        console.error("Lỗi khi thêm vào giỏ hàng:", error);
+        alert("Có lỗi xảy ra!");
+      }
+    }
+  </script></body>
+</html>
