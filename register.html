@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký - DanhShop</title>
+  <link rel="stylesheet" href="STYLE.CSS">
+  <script src="heafooter.js" defer></script>
+</head>
+<body>
+
+<main class="auth-container">
+  <form class="auth-form" id="registerForm">
+    <h2>Đăng ký</h2>
+
+    <label for="name">Họ tên:</label>
+    <input type="text" id="name" placeholder="Nhập họ tên..." required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Nhập email..." required>
+
+    <label for="password">Mật khẩu:</label>
+    <input type="password" id="password" placeholder="Tạo mật khẩu..." required>
+
+    <button type="submit">Đăng ký</button>
+    <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+  </form>
+</main>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  if(users.find(u => u.email === email)){
+    alert("Email đã tồn tại!");
+    return;
+  }
+
+  users.push({ name, email, password });
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Đăng ký thành công! Hãy đăng nhập.");
+  window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
