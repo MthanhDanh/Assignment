@@ -108,7 +108,7 @@ if (proDetailDiv) {
   const id = urlParams.get('id');
 
   if (id) {
-    fetch(`https://my-json-server.typicode.com/MthanhDanh/Assignment/products${id}`)
+    fetch(`https://my-json-server.typicode.com/MthanhDanh/Assignment/products/${id}`)
       .then(response => {
         if (!response.ok) throw new Error("Sản phẩm không tồn tại");
         return response.json();
