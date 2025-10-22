@@ -118,24 +118,24 @@
         renderData(laptopProducts, "laptop");
       })
       .catch(err => console.error("Lỗi tải sản phẩm:", err));fetch('https://my-json-server.typicode.com/MthanhDanh/Assignment/products')
-  .then(response => response.json())
-  .then(data => {
-    const products = data.map(item =>
-      new Product(item.id, item.name, item.price, item.image, item.category, item.hot, item.description)
-    );
-
-    const phoneProducts = products.filter(p => p.category.toLowerCase() === "điện thoại");
-    const laptopProducts = products.filter(p => p.category.toLowerCase() === "laptop");
-
-    const renderData = (arr, divId) => {
-      document.getElementById(divId).innerHTML = arr.map(p => p.render()).join("");
-    };
-
-    renderData(products, "content");
-    renderData(phoneProducts, "phone");
-    renderData(laptopProducts, "laptop");
-  })
-  .catch(err => console.error("Lỗi tải sản phẩm:", err));
+      .then(response => response.json())
+      .then(data => {
+        const products = data.map(item =>
+          new Product(item.id, item.name, item.price, item.image, item.category, item.hot, item.description)
+        );
+    
+        const phoneProducts = products.filter(p => p.category.toLowerCase() === "điện thoại");
+        const laptopProducts = products.filter(p => p.category.toLowerCase() === "laptop");
+    
+        const renderData = (arr, divId) => {
+          document.getElementById(divId).innerHTML = arr.map(p => p.render()).join("");
+        };
+    
+        renderData(products, "content");
+        renderData(phoneProducts, "phone");
+        renderData(laptopProducts, "laptop");
+      })
+      .catch(err => console.error("Lỗi tải sản phẩm:", err));
   </script>
 </body>
 </html>
