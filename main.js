@@ -109,42 +109,41 @@ if (proDetailDiv) {
 
   if (id) {
     fetch(`https://my-json-server.typicode.com/MthanhDanh/Assignment/products/${id}`)
-      .then(response => {
-        if (!response.ok) throw new Error("Sản phẩm không tồn tại");
-        return response.json();
-      })
-      .then(data => {
-        const product = new Product(
-          data.id,
-          data.name,
-          data.price,
-          data.image,
-          data.category,
-          data.hot,
-          data.description
-        );
+  .then(response => {
+    if (!response.ok) throw new Error("Sản phẩm không tồn tại");
+    return response.json();
+  })
+  .then(data => {
+    const product = new Product(
+      data.id,
+      data.name,
+      data.price,
+      data.image,
+      data.category,
+      data.hot,
+      data.description
+    );
 
-        proDetailDiv.innerHTML = product.renderDetail();
+    proDetailDiv.innerHTML = product.renderDetail();
 
-        const addCartBtn = document.getElementById("addCartBtn");
-        if (addCartBtn) {
-          addCartBtn.addEventListener("click", () => {
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const existing = cart.find(p => p.id === product.id);
-            if (existing) {
-              existing.quantity += 1;
-            } else {
-              cart.push({ ...product, quantity: 1 });
-            }
-            localStorage.setItem("cart", JSON.stringify(cart));
-            alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
-          });
+    const addCartBtn = document.getElementById("addCartBtn");
+    if (addCartBtn) {
+      addCartBtn.addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existing = cart.find(p => p.id === product.id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ ...product, quantity: 1 });
         }
-      })
-      .catch(err => {
-        proDetailDiv.innerHTML = "<p>Lỗi tải sản phẩm!</p>";
-        console.error(err);
-        let allProductsData = JSON.parse(localStorage.getItem("adminProducts")) || [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
       });
+    }
+  })
+  .catch(err => {
+    console.error("Lỗi tải sản phẩm:", err);
+    proDetailDiv.innerHTML = "<p>Lỗi tải sản phẩm!</p>";
+  });
   }
 }
