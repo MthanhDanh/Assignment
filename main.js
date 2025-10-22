@@ -47,7 +47,7 @@ const sortPrice = document.getElementById('sort-price');
 let allProductsData = [];
 
 if (productAll) {
-  fetch('https://my-json-server.typicode.com/MthanhDanh/shop/products${id}')
+  fetch('https://my-json-server.typicode.com/MthanhDanh/shop/products')
     .then(response => response.json())
     .then(data => {
       allProductsData = data;
