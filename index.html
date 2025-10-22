@@ -99,7 +99,7 @@
       }
     }
 
-    fetch('http://localhost:3000/products')
+    fetch('https://my-json-server.typicode.com/MthanhDanh/shop/products${id}')
       .then(response => response.json())
       .then(data => {
         const products = data.map(item =>
